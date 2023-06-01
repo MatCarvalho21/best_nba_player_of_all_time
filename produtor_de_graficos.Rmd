@@ -21,15 +21,21 @@ grafico_pontos_idade_rs <- ggplot(data = stats_regular_season, aes(x = AGE, y = 
 
 grafico_pontos_idade_po <- ggplot(data = stats_playoffs, aes(x = AGE, y = PPG, color = TEAM)) + geom_point(size = 3) + facet_wrap(~PLAYER, ncol = 3) + theme_linedraw() + xlim(18, 40) + ylim(0, 40) + scale_color_manual(values = paleta_times) + labs(x = "Idade Dos Jogadores", y = "Média de Pontos Por Partida", colour = "Equipe")
 
-ggsave("imagens/grafico_pontos_idade_rs.png", plot = grafico_pontos_idade_rs, dpi = 300)
-ggsave("imagens/grafico_pontos_idade_po.png", plot = grafico_pontos_idade_po, dpi = 300)
+ggsave("imagens/graf_1.png", plot = grafico_pontos_idade_rs, dpi = 150)
+ggsave("imagens/graf_2.png", plot = grafico_pontos_idade_po, dpi = 150)
 ```
 
-
 ```{r fig.align='center', fig.width=15, fig.height=5,message=FALSE, warning=FALSE}
-colnames(stats_regular_season)[colnames(stats_regular_season) == "FG."] <- "FGP"
-stats_regular_season$FGP <- as.numeric(stats_regular_season$FGP)
-ggplot(data = stats_regular_season, mapping = aes(x = AGE, y = FGP)) + geom_bar()
+stats_regular_season <- mutate(stats_regular_season, APG = round((AST/GP), 2))
+stats_playoffs <- mutate(stats_playoffs, APG = round((AST/GP), 2))
+
+graf_3 <- paleta_players <- c("gold", "darkred", "red")
+grafico_assist_idade_rs <- ggplot(stats_regular_season, aes(x = AGE, y = APG, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(x = "Idade Dos Jogadores", y = "Média de Assistências Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1)
+
+grafico_assist_idade_po <- ggplot(stats_playoffs, aes(x = AGE, y = APG, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(x = "Idade Dos Jogadores", y = "Média de Assistências Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1)
+
+ggsave("imagens/graf_3.png", plot = grafico_assist_idade_rs, dpi = 150)
+ggsave("imagens/graf_4.png", plot = grafico_assist_idade_po, dpi = 150)
 ```
 
 
