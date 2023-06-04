@@ -46,7 +46,7 @@ stats_regular_season <- mutate(stats_regular_season, REP = round((REB/GP), 2))
 stats_playoffs <- mutate(stats_playoffs,REP = round((REB/GP), 2))
 
 graf_3 <- paleta_players <- c("gold", "darkred", "red")
-grafico_reb_idade_rs <- ggplot(stats_regular_season, aes(x = AGE, y = REP, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Rebotes Por Jogo (RS)",x = "Idade Dos Jogadores", y = "Média de Rebotes Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))  +facet_wrap(~PLAYER, ncol = 1)
+grafico_reb_idade_rs <- ggplot(stats_regular_season, aes(x = AGE, y = REP, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Rebotes Por Jogo (RS)",x = "Idade Dos Jogadores", y = "Média de Rebotes Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
 
 grafico_reb_idade_po <- ggplot(stats_playoffs, aes(x = AGE, y = REP, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Rebotes Por Jogo (PO)",x = "Idade Dos Jogadores", y = "Média de Rebotes Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
 
