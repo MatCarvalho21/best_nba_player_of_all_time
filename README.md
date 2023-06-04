@@ -6,4 +6,9 @@ A ideia do trabalho foi selecionar uma base de dados, formular uma hipótese, fa
 
 O tema escolhido por mim foi basquete, e a minha ideia inicial era descobrir, por meio dos números, quem era/foi o melhor jogador de basquete de todos os tempos. Minha ideia inicial, e que foi confirmada ao longo da análise dos dados, era de que LeBron James é o melhor jogador de basquete de todos os tempos. 
 
-As bases de dados, no formato `.CSV`, estão no diretório `base_de_dados`. A análise detalhada e completa se encontra no arquivo `analise_exploratoria_aedv_A2.ipynb`. As imagens utilizadas para confecção da análise estão no diretório `imagens`, e as imagens utilizadas para produção da peça gráfica estão no sub-diretório `grafico`. Existe um arquivo `funcoes_estatistica.py`, que contém duas funções em python que foram usadas para facilitar a análise dos dados. Além do `produtor_de_graficos.Rmd`, que é um arquivo de R Markdown com os códigos para todos os gráficos utilizados para ilustrar tanto a análise, quanto a peça gráfica. Por fim, a peça gráfica está no arquivo `peca_grafica_aedv_matheus_carvalho.html` e contém uma página html interativa onde o usuário pode comparar diferentes estatísticas das carreiras de LeBron James, Michael Jordan e Kobe Bryant.  
+* As bases de dados, no formato `.CSV`, estão no diretório `base_de_dados`. 
+* A análise detalhada e completa se encontra no arquivo `analise_exploratoria_aedv_A2.ipynb`. 
+* As imagens utilizadas para confecção da análise estão no diretório `imagens`, e as imagens utilizadas para produção da peça gráfica estão no sub-diretório `grafico`. 
+* Existe um arquivo `funcoes_estatistica.py`, que contém duas funções em python que foram usadas para facilitar a análise dos dados. 
+* Além do `produtor_de_graficos.Rmd`, que é um arquivo de R Markdown com os códigos para todos os gráficos utilizados para ilustrar tanto a análise, quanto a peça gráfica. 
+* Por fim, a peça gráfica está no arquivo `peca_grafica_aedv_matheus_carvalho.html` e contém uma página html interativa onde o usuário pode comparar diferentes estatísticas das carreiras de LeBron James, Michael Jordan e Kobe Bryant.  
