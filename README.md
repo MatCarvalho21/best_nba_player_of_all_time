@@ -1,1 +1,3 @@
-# A2_AEDV
+# Trabalho de A2 - AEDV - Matheus Carvalho
+## Descrição:
+Esse projeto foi desenvolvido por mim, Matheus Carvalho, estudante do primeiro período de Ciência de Dados e Inteligência Artificial da EMAp, Escola de Matemática Aplicada, da FGV-RJ. O objetivo do trabalho/projeto era fazer uma análise exploratória de uma base de dados, partindo de uma hipótese original, e ao longo da análise comprovar ou negar a hipótese, nesse caso trocando de hipótesse. Para isso foram usadas diferentes ferramentas. Dentre elas estão o jupyter notebbok, R markdown, ggplot, dplyr, código em pytho, html, javascript, css, canva, photopea e outras. Como conclusão do projeto, foi pedido que uma "peça gráfica" fosse produzida de maneira a resumir em um elemnto gráfico toda a nossa análise e a ideia por trás dela. 
