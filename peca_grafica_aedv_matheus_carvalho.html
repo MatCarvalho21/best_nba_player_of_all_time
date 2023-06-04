@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Peça Gráfica AEDV - Matheus Carvalho</title>
+  <meta charset="UTF-8">
+  <style>
+    /* RESOLVIDO */
+    body {
+    background-color: #FF9E61;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 105vh; /* VAI DEFINIR A ALTURA DA PÁGINA*/
+    margin: 0;
+    }
+
+    /* RESOLVIDO */
+    #logo-bar {
+    background-color: black;
+    width: 100%;
+    height: 15vh; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    /* RESOLVIDO */
+    #logo-bar img { 
+    max-height: 170%;
+    max-width: 170%;
+    }
+
+    #image-container {
+    max-width: 80vh;
+    max-height: 80vh; 
+    margin-top: 5%; 
+    margin-left: -58%; /* Ajuste o valor negativo conforme necessário */
+    border: 10px solid #000000;
+    border-radius: 10px;
+    padding: 0px;
+    box-sizing: border-box;
+    }
+
+    #image-container img {
+    width: 100%; 
+    height: auto;
+    }
+
+    /* RESOLVIDO */
+    .filtro-container {
+    background-color: #F2F2F2;
+    border: 5px solid #000000;
+    border-radius: 5px;
+    padding: 5px;
+    width: 80%; /* Utiliza 80% da largura do elemento pai */
+    max-width: 400px; /* Define uma largura máxima para evitar que o filtro fique muito grande em telas grandes */
+    margin: 20px auto;
+    position: absolute;
+    top: 30%; /* Centraliza verticalmente */
+    left: 70%; /* Centraliza horizontalmente */
+    transform: translate(-50%, -50%); /* Centraliza o filtro em relação ao centro da tela */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
+
+    /* RESOLVIDO */
+    .github-button {
+    position: absolute;
+    top: 3%; 
+    right: 2%; 
+    width: 4vw; 
+    height: auto; 
+    }
+
+    #imagem-filtrada {
+    position: absolute;
+    border: 5px solid #000000;
+    border-radius: 5px;
+    top: 43%;
+    left: 30%;
+    width: 50vw; /* Utiliza 18% da largura da viewport */
+    height: auto;
+    transform: translate(30%, 35%); /* Ajuste as proporções para o deslocamento horizontal e vertical */
+    }
+
+  </style>
+<script>
+function filtrar() {
+  var campo1 = document.getElementById("campo1").value || "None";
+  var campo2 = document.getElementById("campo2").value || "None";
+
+  // Lógica para exibir a imagem com base nos campos selecionados
+  var imagemFiltrada = "";
+  if (campo1 === "valor1" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_GP_RS.png";
+  } else if (campo1 === "valor2" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_GS_RS.png";
+  } else if (campo1 === "valor3" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_MIN_RS.png";
+  } else if (campo1 === "valor4" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_PTS_RS.png";
+  } else if (campo1 === "valor5" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_FGM_RS.png";
+  } else if (campo1 === "valor6" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_FGA_RS.png";
+  } else if (campo1 === "valor7" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_FG._RS.png";
+  } else if (campo1 === "valor8" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_X3PM_RS.png";
+  } else if (campo1 === "valor9" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_X3PA_RS.png";
+  } else if (campo1 === "valor10" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_X3P._RS.png";
+  } else if (campo1 === "valor11" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_FTM_RS.png";
+  } else if (campo1 === "valo12" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_FTA_RS.png";
+  } else if (campo1 === "valo13" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_FT._RS.png";
+  } else if (campo1 === "valor14" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_OREB_RS.png";
+  } else if (campo1 === "valor15" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_DREB_RS.png";
+  } else if (campo1 === "valor16" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_REB_RS.png";
+  } else if (campo1 === "valor17" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_AST_RS.png";
+  } else if (campo1 === "valor18" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_STL_RS.png";
+  } else if (campo1 === "valor19" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_BLK_RS.png";
+  } else if (campo1 === "valor20" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_TOV_RS.png";
+  } else if (campo1 === "valor21" && campo2 === "valorA") {
+    imagemFiltrada = "imagens/grafico/GRAF_PF_RS.png";
+} else if (campo1 === "valor1" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_GP_PO.png";
+  } else if (campo1 === "valor2" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_GS_PO.png";
+  } else if (campo1 === "valor3" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_MIN_PO.png";
+  } else if (campo1 === "valor4" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_PTS_PO.png";
+  } else if (campo1 === "valor5" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_FGM_PO.png";
+  } else if (campo1 === "valor6" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_FGA_PO.png";
+  } else if (campo1 === "valor7" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_FG._PO.png";
+  } else if (campo1 === "valor8" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_X3PM_PO.png";
+  } else if (campo1 === "valor9" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_X3PA_PO.png";
+  } else if (campo1 === "valor10" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_X3P._PO.png";
+  } else if (campo1 === "valor11" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_FTM_PO.png";
+  } else if (campo1 === "valor12" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_FTA_PO.png";
+  } else if (campo1 === "valor13" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_FT._PO.png";
+  } else if (campo1 === "valor14" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_OREB_PO.png";
+  } else if (campo1 === "valor15" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_DREB_PO.png";
+  } else if (campo1 === "valor16" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_REB_PO.png";
+  } else if (campo1 === "valor17" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_AST_PO.png";
+  } else if (campo1 === "valor18" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_STL_PO.png";
+  } else if (campo1 === "valor19" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_BLK_PO.png";
+  } else if (campo1 === "valor20" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_TOV_PO.png";
+  } else if (campo1 === "valor21" && campo2 === "valorB") {
+    imagemFiltrada = "imagens/grafico/GRAF_PF_PO.png";
+  } else if (campo1 === "valor0" && campo2 === "valorX") {
+    imagemFiltrada = "imagens/grafico/GRAF_PTS_RS.png";
+  }
+  // Atualiza o atributo src do elemento img com a imagem filtrada correspondente
+  var imagemFiltradaElement = document.getElementById("imagem-filtrada");
+  imagemFiltradaElement.src = imagemFiltrada;
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+  document.getElementById('selecionar').click();
+  });
+  </script>
+</head>
+<body>
+  <div id="logo-bar">
+    <img src="imagens/Meu Logo.png" alt="Logo do site" />
+  </div>
+  <div id="image-container">
+    <img src="imagens/Montagem .png" alt="Montagem LeBron, Jordan e Kobe" />
+  </div>
+  <div class="filtro-container">
+    <h2>Selecione o Gráfico</h2>
+    <label for="campo1">Estatística:</label>
+    <select id="campo1">
+      <option value="valor0">- - -</option>
+      <option value="valor1">Jogos Disputados Por Temporada</option>
+      <option value="valor2">Jogos de Titular Por Temporada</option>
+      <option value="valor3">Média de Minutos Por Temporada</option>
+      <option value="valor4">Média de Pontos Por Temporada</option>
+      <option value="valor5">Média de Arremessos Convertidos Por Temporada</option>
+      <option value="valor6">Média de Arremessos Tentados Por Temporada</option>
+      <option value="valor7">Aproveitamento dos Arremessos Por Temporada</option>
+      <option value="valor8">Média de Arremessos de 3 PTS Convertidos Por Temporada</option>
+      <option value="valor9">Média de Arremessos de 3 PTS Tentados Por Temporada</option>
+      <option value="valor10">Aproveitamento dos Arremessos de 3 PTS Por Temporada</option>
+      <option value="valor11">Média de Lances Livres Convertidos Por Temporada</option>
+      <option value="valor12">Média de Lances Livres Tentados Por Temporada</option>
+      <option value="valor13">Aproveitamento dos Lances Livres Por Temporada</option>
+      <option value="valor14">Média de Rebotes Ofensivos Por Temporada</option>
+      <option value="valor15">Média de Rebotes Defensivos Por Temporada</option>
+      <option value="valor16">Média de Rebotes Totais Por Temporada</option>
+      <option value="valor17">Média de Assistências Por Temporada</option>
+      <option value="valor18">Média de Roubadas de Bola Por Temporada</option>
+      <option value="valor19">Média de Bloqueios "Tocos" Temporada</option>
+      <option value="valor20">Média de Perdas de Bola Por Temporada</option>
+      <option value="valor21">Média de Faltas Pessoais Por Temporada</option>
+    </select>
+    <br>
+    <label for="campo2">Fase Da Temporada:</label>
+    <select id="campo2">
+      <option value="valorX">- - -</option>
+      <option value="valorA">Temporada Regular</option>
+      <option value="valorB">Playoffs</option>
+    </select>
+    <br>
+    <button id = "selecionar" onclick="filtrar()">Selecionar</button>
+  </div>
+  <a class="github-button" href="https://github.com/MatCarvalho21/A2_AEDV_GITHUB" target="_blank">
+    <img src="imagens/github.png" alt="GitHub" height="65" width="65">
+  </a>  
+  <div id="imagem-filtrada-container">
+    <img id="imagem-filtrada" src="" alt="Imagem Filtrada" />
+  </div>
+</body>
+</html>

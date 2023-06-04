@@ -5,6 +5,9 @@ library(dplyr)
 
 if(!require(ggplot2)) install.packages("ggplot2", repos="http://R-Forge.R-project.org", dependencies = TRUE)
 library(ggplot2)
+
+if(!require(scales)) install.packages("scales", repos="http://R-Forge.R-project.org", dependencies = TRUE)
+library(scales)
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -43,7 +46,7 @@ stats_regular_season <- mutate(stats_regular_season, REP = round((REB/GP), 2))
 stats_playoffs <- mutate(stats_playoffs,REP = round((REB/GP), 2))
 
 graf_3 <- paleta_players <- c("gold", "darkred", "red")
-grafico_reb_idade_rs <- ggplot(stats_regular_season, aes(x = AGE, y = REP, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Rebotes Por Jogo (RS)",x = "Idade Dos Jogadores", y = "Média de Rebotes Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
+grafico_reb_idade_rs <- ggplot(stats_regular_season, aes(x = AGE, y = REP, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Rebotes Por Jogo (RS)",x = "Idade Dos Jogadores", y = "Média de Rebotes Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))  +facet_wrap(~PLAYER, ncol = 1)
 
 grafico_reb_idade_po <- ggplot(stats_playoffs, aes(x = AGE, y = REP, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Rebotes Por Jogo (PO)",x = "Idade Dos Jogadores", y = "Média de Rebotes Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
 
@@ -51,6 +54,195 @@ ggsave("imagens/graf_5.png", plot = grafico_reb_idade_rs, dpi = 150)
 ggsave("imagens/graf_6.png", plot = grafico_reb_idade_po, dpi = 150)
 ```
 
+```{r fig.align='center', fig.width=12, fig.height=4,message=FALSE, warning=FALSE}
+GRAF_GP_RS <- ggplot(stats_regular_season, aes(x = AGE, y = GP, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 100) + scale_color_manual(values = paleta_times) + labs(title = "Jogos Disputados Por Temporada",x = "Idade Dos Jogadores", y = "Número de Jogos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=70, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_GP_PO <- ggplot(stats_playoffs, aes(x = AGE, y = GP, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 30) + scale_color_manual(values = paleta_times) + labs(title = "Jogos Disputados Por Temporada",x = "Idade Dos Jogadores", y = "Número de Jogos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=15, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_GS_RS <- ggplot(stats_regular_season, aes(x = AGE, y = GS, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 100) + scale_color_manual(values = paleta_times) + labs(title = "Jogos Como Titular Por Temporada",x = "Idade Dos Jogadores", y = "Número de Jogos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=70, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_GS_PO <- ggplot(stats_playoffs, aes(x = AGE, y = GS, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 30) + scale_color_manual(values = paleta_times) + labs(title = "Jogos Como Titular Por Temporada",x = "Idade Dos Jogadores", y = "Número de Jogos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=15, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, MIN = round((MIN/GP), 2))
+stats_playoffs <- mutate(stats_playoffs,MIN = round((MIN/GP), 2))
+
+GRAF_MIN_RS <- ggplot(stats_regular_season, aes(x = AGE, y = MIN, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(20, 50) + scale_color_manual(values = paleta_times) + labs(title = "Média de Minutos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Minutos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=40, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_MIN_PO <- ggplot(stats_playoffs, aes(x = AGE, y = MIN, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(20, 50) + scale_color_manual(values = paleta_times) + labs(title = "Média de Minutos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Minutos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=40, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, PTS = round((PTS/GP), 2))
+stats_playoffs <- mutate(stats_playoffs,PTS = round((PTS/GP), 2))
+
+GRAF_PTS_RS <- ggplot(stats_regular_season, aes(x = AGE, y = PTS, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(20, 40) + scale_color_manual(values = paleta_times) + labs(title = "Média de Pontos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Pontos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=30, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_PTS_PO <- ggplot(stats_playoffs, aes(x = AGE, y = PTS, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(20, 40) + scale_color_manual(values = paleta_times) + labs(title = "Média de Pontos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Pontos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol =3) + geom_hline(yintercept=30, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, FGM = round((FGM/GP), 2))
+stats_playoffs <- mutate(stats_playoffs,FGM = round((FGM/GP), 2))
+
+GRAF_FGM_RS <- ggplot(stats_regular_season, aes(x = AGE, y = FGM, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 18) + scale_color_manual(values = paleta_times) + labs(title = "Média de Arremessos Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=12, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_FGM_PO <- ggplot(stats_playoffs, aes(x = AGE, y = FGM, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 18) + scale_color_manual(values = paleta_times) + labs(title = "Média de Arremessos Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=12, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, FGA = round((FGA/GP), 2))
+stats_playoffs <- mutate(stats_playoffs,FGA = round((FGA/GP), 2))
+
+GRAF_FGA_RS <- ggplot(stats_regular_season, aes(x = AGE, y = FGA, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(10, 30) + scale_color_manual(values = paleta_times) + labs(title = "Média de Arremessos Tentados Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=25, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_FGA_PO <- ggplot(stats_playoffs, aes(x = AGE, y = FGA, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(10, 30) + scale_color_manual(values = paleta_times) + labs(title = "Média de Arremessos Tentados Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=25, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, FG. = FG./100)
+stats_playoffs <- mutate(stats_playoffs,FG. = FG./100)
+
+GRAF_FG._RS <- ggplot(stats_regular_season, aes(x = AGE, y = FG., color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(30, 60) + scale_color_manual(values = paleta_times) + labs(title = "Porcentagem de Arremessos Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Porcentagem de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=0.50, linetype="dashed", color = "black", size = 0.7) + scale_y_continuous(labels=scales::percent)
+
+GRAF_FG._PO <- ggplot(stats_playoffs, aes(x = AGE, y = FG., color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(30, 60) + scale_color_manual(values = paleta_times) + labs(title = "Porcentagem de Arremessos Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Porcentagem de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=0.50, linetype="dashed", color = "black", size = 0.7) + scale_y_continuous(labels=scales::percent)
+
+stats_regular_season <- mutate(stats_regular_season, X3PM = round((X3PM/GP), 2))
+stats_playoffs <- mutate(stats_playoffs,X3PM = round((X3PM/GP), 2))
+
+GRAF_X3PM_RS <- ggplot(stats_regular_season, aes(x = AGE, y = X3PM, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 3.5) + scale_color_manual(values = paleta_times) + labs(title = "Média de Arremessos De 3 PTS Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=2, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_X3PM_PO <- ggplot(stats_playoffs, aes(x = AGE, y = X3PM, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 3.5) + scale_color_manual(values = paleta_times) + labs(title = "Média de Arremessos De 3 PTS Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=2, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, X3PA = round((X3PA/GP), 2))
+stats_playoffs <- mutate(stats_playoffs,X3PA = round((X3PA/GP), 2))
+
+GRAF_X3PA_RS <- ggplot(stats_regular_season, aes(x = AGE, y = X3PA, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 8) + scale_color_manual(values = paleta_times) + labs(title = "Média de Arremessos De 3 PTS Tentados Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=6, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_X3PA_PO <- ggplot(stats_playoffs, aes(x = AGE, y = X3PA, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 8) + scale_color_manual(values = paleta_times) + labs(title = "Média de Arremessos De 3 PTS Tentados Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=6, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, X3P. = X3P./100)
+stats_playoffs <- mutate(stats_playoffs,X3P. = X3P./100)
+
+GRAF_X3P._RS <- ggplot(stats_regular_season, aes(x = AGE, y = X3P., color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(20, 40) + scale_color_manual(values = paleta_times) + labs(title = "Porcentagem de Arremessos de 3 PTS Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Porcentagem de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=0.35, linetype="dashed", color = "black", size = 0.7) + scale_y_continuous(labels=scales::percent)
+
+GRAF_X3P._PO <- ggplot(stats_playoffs, aes(x = AGE, y = X3P., color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(20, 40) + scale_color_manual(values = paleta_times) + labs(title = "Porcentagem de Arremessos de 3 PTS Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Porcentagem de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=0.35, linetype="dashed", color = "black", size = 0.7) + scale_y_continuous(labels=scales::percent)
+
+stats_regular_season <- mutate(stats_regular_season, FTM = round((FTM/GP), 2))
+stats_playoffs <- mutate(stats_playoffs,FTM = round((FTM/GP), 2))
+
+GRAF_FTM_RS <- ggplot(stats_regular_season, aes(x = AGE, y = FTM, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_times) + labs(title = "Média de Lances Livres Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_FTM_PO <- ggplot(stats_playoffs, aes(x = AGE, y = FTM, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_times) + labs(title = "Média de Lances Livres Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, FTA = round((FTA/GP), 2))
+stats_playoffs <- mutate(stats_playoffs,FTA = round((FTA/GP), 2))
+
+GRAF_FTA_RS <- ggplot(stats_regular_season, aes(x = AGE, y = FTA, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_times) + labs(title = "Média de Lances Livres Cobrados Por Temporada",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_FTA_PO <- ggplot(stats_playoffs, aes(x = AGE, y = FTA, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_times) + labs(title = "Média de Lances Livres Cobrados Por Temporada",x = "Idade Dos Jogadores",x = "Idade Dos Jogadores", y = "Número de Arremessos", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, FT. = FT./100)
+stats_playoffs <- mutate(stats_playoffs, FT. = FT./100)
+
+GRAF_FT._RS <- ggplot(stats_regular_season, aes(x = AGE, y = FT., color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(80, 100) + scale_color_manual(values = paleta_times) + labs(title = "Porcentagem de Lances Livres Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Porcentagem de Lances Livres", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=0.8, linetype="dashed", color = "black", size = 0.7) + scale_y_continuous(labels=scales::percent)
+
+GRAF_FT._PO <- ggplot(stats_playoffs, aes(x = AGE, y = FT., color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(80, 100) + scale_color_manual(values = paleta_times) + labs(title = "Porcentagem de Lances Livres Convertidos Por Temporada",x = "Idade Dos Jogadores", y = "Porcentagem de Lances Livres", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=0.8, linetype="dashed", color = "black", size = 0.7) + scale_y_continuous(labels=scales::percent)
+
+stats_regular_season <- mutate(stats_regular_season, OREB = round((OREB/GP), 2))
+stats_playoffs <- mutate(stats_playoffs,OREB = round((OREB/GP), 2))
+
+GRAF_OREB_RS <- ggplot(stats_regular_season, aes(x = AGE, y = OREB, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 3) + scale_color_manual(values = paleta_times) + labs(title = "Média Rebotes Ofensivos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Rebotes", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=2, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_OREB_PO <- ggplot(stats_playoffs, aes(x = AGE, y = OREB, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 3) + scale_color_manual(values = paleta_times) + labs(title = "Média de Rebotes Ofensivos Por Temporada",x = "Idade Dos Jogadores",x = "Idade Dos Jogadores", y = "Número de Rebotes", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=2, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, DREB = round((DREB/GP), 2))
+stats_playoffs <- mutate(stats_playoffs, DREB = round((DREB/GP), 2))
+
+GRAF_DREB_RS <- ggplot(stats_regular_season, aes(x = AGE, y = DREB, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 10) + scale_color_manual(values = paleta_times) + labs(title = "Média de Rebotes Defensivos Por Temporada",x = "Idade Dos Jogadores", y = "Número de Rebotes", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_DREB_PO <- ggplot(stats_playoffs, aes(x = AGE, y = DREB, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 10) + scale_color_manual(values = paleta_times) + labs(title = "Média de Rebotes Defensivos Por Temporada",x = "Idade Dos Jogadores",x = "Idade Dos Jogadores", y = "Número de Rebotes", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, REB = round((REB/GP), 2))
+stats_playoffs <- mutate(stats_playoffs, REB = round((REB/GP), 2))
+
+GRAF_REB_RS <- ggplot(stats_regular_season, aes(x = AGE, y = REB, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_times) + labs(title = "Média de Rebotes Totais Por Temporada",x = "Idade Dos Jogadores", y = "Número de Rebotes", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_REB_PO <- ggplot(stats_playoffs, aes(x = AGE, y = REB, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_times) + labs(title = "Média de Rebotes Totais Por Temporada",x = "Idade Dos Jogadores",x = "Idade Dos Jogadores", y = "Número de Rebotes", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 0.7)
+
+
+
+###########################################################################
+
+stats_regular_season <- mutate(stats_regular_season, AST = round((AST/GP), 2))
+stats_playoffs <- mutate(stats_playoffs, AST = round((AST/GP), 2))
+
+GRAF_AST_RS <- ggplot(stats_regular_season, aes(x = AGE, y = AST, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_times) + labs(title = "Média Assistências Por Temporada",x = "Idade Dos Jogadores", y = "Número de Assistências", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_AST_PO <- ggplot(stats_playoffs, aes(x = AGE, y = AST, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_times) + labs(title = "Média de Assistências Por Temporada",x = "Idade Dos Jogadores",x = "Idade Dos Jogadores", y = "Número de Assistências", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, STL = round((STL/GP), 2))
+stats_playoffs <- mutate(stats_playoffs, STL = round((STL/GP), 2))
+
+GRAF_STL_RS <- ggplot(stats_regular_season, aes(x = AGE, y = STL, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 3) + scale_color_manual(values = paleta_times) + labs(title = "Média de Roubadas de Bola Por Temporada",x = "Idade Dos Jogadores", y = "Número de Roubadas de Bola", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=2, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_STL_PO <- ggplot(stats_playoffs, aes(x = AGE, y = STL, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 3) + scale_color_manual(values = paleta_times) + labs(title = "Média de Roubadas de Bola Por Temporada",x = "Idade Dos Jogadores",x = "Idade Dos Jogadores", y = "Número de Roubadas de Bola", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=2, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, BLK = round((BLK/GP), 2))
+stats_playoffs <- mutate(stats_playoffs, BLK = round((BLK/GP), 2))
+
+GRAF_BLK_RS <- ggplot(stats_regular_season, aes(x = AGE, y = BLK, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 2) + scale_color_manual(values = paleta_times) + labs(title = "Média de Bloqueios 'Tocos' Por Temporada",x = "Idade Dos Jogadores", y = "Número de Bloqueios", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=1, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_BLK_PO <- ggplot(stats_playoffs, aes(x = AGE, y = BLK, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 2) + scale_color_manual(values = paleta_times) + labs(title = "Média de Bloqueios 'Tocos' Por Temporada",x = "Idade Dos Jogadores",x = "Idade Dos Jogadores", y = "Número de Bloqueios", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=1, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, TOV = round((TOV/GP), 2))
+stats_playoffs <- mutate(stats_playoffs, TOV = round((TOV/GP), 2))
+
+GRAF_TOV_RS <- ggplot(stats_regular_season, aes(x = AGE, y = TOV, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 5) + scale_color_manual(values = paleta_times) + labs(title = "Média de Perdas de Bola Por Temporada",x = "Idade Dos Jogadores", y = "Número de Perdas de Bola", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=3, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_TOV_PO <- ggplot(stats_playoffs, aes(x = AGE, y = TOV, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(0, 5) + scale_color_manual(values = paleta_times) + labs(title = "Média de Perdas de Bola Por Temporada",x = "Idade Dos Jogadores",x = "Idade Dos Jogadores", y = "Número de Perdas de Bola", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=3, linetype="dashed", color = "black", size = 0.7)
+
+stats_regular_season <- mutate(stats_regular_season, PF = round((PF/GP), 2))
+stats_playoffs <- mutate(stats_playoffs, PF = round((PF/GP), 2))
+
+GRAF_PF_RS <- ggplot(stats_regular_season, aes(x = AGE, y = PF, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(1, 5) + scale_color_manual(values = paleta_times) + labs(title = "Média de Faltas Pessoais Por Temporada",x = "Idade Dos Jogadores", y = "Número de Faltas Pessoais", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=3, linetype="dashed", color = "black", size = 0.7)
+
+GRAF_PF_PO <- ggplot(stats_playoffs, aes(x = AGE, y = PF, color = TEAM)) + geom_line(size = 0.8, color = "gray", alpha = 0.3) + geom_point(size = 1.5, alpha = 0.6) + theme_linedraw() + xlim(18, 40) + ylim(1, 5) + scale_color_manual(values = paleta_times) + labs(title = "Média de Faltas Pessoaiss Por Temporada",x = "Idade Dos Jogadores",x = "Idade Dos Jogadores", y = "Número de Faltas Pessoais", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 15)) + facet_wrap(~PLAYER, ncol = 3) + geom_hline(yintercept=3, linetype="dashed", color = "black", size = 0.7)
+
+ggsave("imagens/grafico/GRAF_GP_RS.png", plot = GRAF_GP_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_GP_PO.png", plot = GRAF_GP_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_GS_RS.png", plot = GRAF_GS_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_GS_PO.png", plot = GRAF_GS_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_MIN_RS.png", plot = GRAF_MIN_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_MIN_PO.png", plot = GRAF_MIN_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_PTS_RS.png", plot = GRAF_PTS_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_PTS_PO.png", plot = GRAF_PTS_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_FGM_RS.png", plot = GRAF_FGM_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_FGM_PO.png", plot = GRAF_FGM_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_FGA_RS.png", plot = GRAF_FGA_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_FGA_PO.png", plot = GRAF_FGA_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_FG._RS.png", plot = GRAF_FG._RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_FG._PO.png", plot = GRAF_FG._PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_X3PM_RS.png", plot = GRAF_X3PM_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_X3PM_PO.png", plot = GRAF_X3PM_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_X3PA_RS.png", plot = GRAF_X3PA_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_X3PA_PO.png", plot = GRAF_X3PA_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_X3P._RS.png", plot = GRAF_X3P._RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_X3P._PO.png", plot = GRAF_X3P._PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_FTM_RS.png", plot = GRAF_FTM_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_FTM_PO.png", plot = GRAF_FTM_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_FTA_RS.png", plot = GRAF_FTA_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_FTA_PO.png", plot = GRAF_FTA_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_FT._RS.png", plot = GRAF_FT._RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_FT._PO.png", plot = GRAF_FT._PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_OREB_RS.png", plot = GRAF_OREB_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_OREB_PO.png", plot = GRAF_OREB_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_DREB_RS.png", plot = GRAF_DREB_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_DREB_PO.png", plot = GRAF_DREB_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_REB_RS.png", plot = GRAF_REB_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_REB_PO.png", plot = GRAF_REB_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_AST_RS.png", plot = GRAF_AST_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_AST_PO.png", plot = GRAF_AST_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_STL_RS.png", plot = GRAF_STL_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_STL_PO.png", plot = GRAF_STL_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_BLK_RS.png", plot = GRAF_BLK_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_BLK_PO.png", plot = GRAF_BLK_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_TOV_RS.png", plot = GRAF_TOV_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_TOV_PO.png", plot = GRAF_TOV_PO, dpi = 150)
+ggsave("imagens/grafico/GRAF_PF_RS.png", plot = GRAF_PF_RS, dpi = 150)
+ggsave("imagens/grafico/GRAF_PF_PO.png", plot = GRAF_PF_PO, dpi = 150)
+```
 
 
 
