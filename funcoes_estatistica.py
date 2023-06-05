@@ -55,4 +55,13 @@ def medidas_de_resumo(base_de_dados_rs, base_de_dados_po, lista_de_variáveis, t
 
     console = Console()
     console.print(table)
-    
+
+def analise_bidimensional(base_de_dados, nome_da_coluna1, nome_da_coluna2):
+    jogadores = set(base_de_dados["PLAYER"])
+
+    for cada_jogador in jogadores:
+        base_de_dados = base_de_dados[base_de_dados["PLAYER"] == cada_jogador]
+        print(f"- {cada_jogador.title()}")
+        print(f"A correlação das variáveis {nome_da_coluna1.title()} e {nome_da_coluna2.title()} é {st.correlation(list(base_de_dados[nome_da_coluna1]), list(base_de_dados[nome_da_coluna2]))}")
+        print(f"A covariância das variáveis {nome_da_coluna1.title()} e {nome_da_coluna2.title()} é {st.covariance(list(base_de_dados[nome_da_coluna1]), list(base_de_dados[nome_da_coluna2]))}")
+        print()
