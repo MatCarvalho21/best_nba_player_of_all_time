@@ -56,12 +56,66 @@ def medidas_de_resumo(base_de_dados_rs, base_de_dados_po, lista_de_variáveis, t
     console = Console()
     console.print(table)
 
-def analise_bidimensional(base_de_dados, nome_da_coluna1, nome_da_coluna2):
-    jogadores = set(base_de_dados["PLAYER"])
+def analise_bidimensional(base_de_dados, lista_variaveis_quant, título1, título2):
+    lista_covar = [lista_variaveis_quant]
+    lista_corre = [lista_variaveis_quant]
 
-    for cada_jogador in jogadores:
-        base_de_dados = base_de_dados[base_de_dados["PLAYER"] == cada_jogador]
-        print(f"- {cada_jogador.title()}")
-        print(f"A correlação das variáveis {nome_da_coluna1.title()} e {nome_da_coluna2.title()} é {st.correlation(list(base_de_dados[nome_da_coluna1]), list(base_de_dados[nome_da_coluna2]))}")
-        print(f"A covariância das variáveis {nome_da_coluna1.title()} e {nome_da_coluna2.title()} é {st.covariance(list(base_de_dados[nome_da_coluna1]), list(base_de_dados[nome_da_coluna2]))}")
-        print()
+    for indice in range(0, len(base_de_dados[["GP"]]), 1):
+        for cada_variavel in lista_variaveis_quant:
+            base_de_dados[cada_variavel][indice] = base_de_dados[cada_variavel][indice] / base_de_dados["GP"][indice]
+    
+    for cada_variavel in lista_variaveis_quant:
+        
+        lista_1 = []
+        lista_2 = []
+        for cada_elemento in lista_variaveis_quant:
+            lista_1.append(round(st.covariance(base_de_dados[cada_variavel], base_de_dados[cada_elemento]), 10))
+            lista_2.append(round(st.correlation(base_de_dados[cada_variavel], base_de_dados[cada_elemento]), 0))
+
+        print(lista_1)
+        print(lista_2)
+
+        lista_covar.append(lista_1)
+        lista_corre.append(lista_2)
+    
+
+            
+    lista_colunas = ["Variável", "GP", "GS", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%",
+                     "FTM", "FTA", "FT%", "OREB", "DREB", "REB", "AST", "STL", "BLK", "TOV", "PF"]
+    
+    '''
+    table1 = Table(title=f"{título1}")
+
+    for colunas in lista_colunas:
+        table1.add_column(colunas)
+        
+    for row in lista_covar:
+        table1.add_row(*row, style='black')
+        
+    table2 = Table(title=f"{título2}")
+
+    for colunas in lista_colunas:
+        table2.add_column(colunas)
+        
+    for row in lista_corre:
+        table2.add_row(*row, style='black')
+        
+    console = Console()
+    console.print(table1)
+    print()
+    console.print(table2)
+    '''
+
+temporada_regular = pd.read_csv("bases_de_dados/stats_regular_season.csv")
+playoffs = pd.read_csv("bases_de_dados/stats_playoffs.csv")
+
+kobe_df_rs = temporada_regular[temporada_regular["PLAYER"] == "KOBE BRYANT"] 
+kobe_df_po = playoffs[playoffs["PLAYER"] == "KOBE BRYANT"] 
+lebron_df_rs = temporada_regular[temporada_regular["PLAYER"] == "LEBRON JAMES"] 
+lebron_df_po = playoffs[playoffs["PLAYER"] == "LEBRON JAMES"] 
+jordan_df_rs = temporada_regular[temporada_regular["PLAYER"] == "MICHAEL JORDAN"] 
+jordan_df_po = playoffs[playoffs["PLAYER"] == "MICHAEL JORDAN"] 
+
+lista_variaveis_quant = ["GP", "GS", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM",
+                          "FTA", "FT%", "OREB", "DREB", "REB", "AST", "STL", "BLK", "TOV", "PF"]
+analise_bidimensional(kobe_df_rs, lista_variaveis_quant, "Covariância Kobe RS", "Correlação Kobe RS")

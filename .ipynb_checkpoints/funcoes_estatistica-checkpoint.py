@@ -55,4 +55,36 @@ def medidas_de_resumo(base_de_dados_rs, base_de_dados_po, lista_de_variáveis, t
 
     console = Console()
     console.print(table)
+
+def analise_bidimensional(base_de_dados, lista_variaveis_quant, título1, título2):
+    lista_covar = [lista_variaveis_quant]
+    lista_corre = [lista_variaveis_quant]
     
+    for cada_variavel in lista_variaveis_quant:
+        for cada_elemento in lista_variaveis_quant:
+            lista_covar.append(round(st.covariance(base_de_dados[cada_variavel], base_de_dados[cada_elemento])), 0)
+            lista_corre.append(round(st.correlation(base_de_dados[cada_variavel], base_de_dados[cada_elemento])), 0)
+            
+    lista_colunas = ["Variável", "GP", "GS", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%",
+                     "FTM", "FTA", "FT%", "OREB", "DREB", "REB", "AST", "STL", "BLK", "TOV", "PF"]
+    
+    table1 = Table(title=f"{título1}")
+
+    for colunas in lista_colunas:
+        table1.add_column(colunas)
+        
+    for linha in lista_covar:
+        table1.add_row(*linha, style=black)
+        
+    table2 = Table(title=f"{título2}")
+
+    for colunas in lista_colunas:
+        table2.add_column(colunas)
+        
+    for linha in lista_corre:
+        table2.add_row(*linha, style=black)
+        
+    console = Console()
+    console.print(table1)
+    print()
+    console.print(table2)
