@@ -56,56 +56,6 @@ def medidas_de_resumo(base_de_dados_rs, base_de_dados_po, lista_de_variáveis, t
     console = Console()
     console.print(table)
 
-def analise_bidimensional(base_de_dados, lista_variaveis_quant, título1, título2):
-    lista_covar = [lista_variaveis_quant]
-    lista_corre = [lista_variaveis_quant]
-
-    for indice in range(0, len(base_de_dados[["GP"]]), 1):
-        for cada_variavel in lista_variaveis_quant:
-            base_de_dados[cada_variavel][indice] = base_de_dados[cada_variavel][indice] / base_de_dados["GP"][indice]
-    
-    for cada_variavel in lista_variaveis_quant:
-        
-        lista_1 = []
-        lista_2 = []
-        for cada_elemento in lista_variaveis_quant:
-            lista_1.append(round(st.covariance(base_de_dados[cada_variavel], base_de_dados[cada_elemento]), 10))
-            lista_2.append(round(st.correlation(base_de_dados[cada_variavel], base_de_dados[cada_elemento]), 0))
-
-        print(lista_1)
-        print(lista_2)
-
-        lista_covar.append(lista_1)
-        lista_corre.append(lista_2)
-    
-
-            
-    lista_colunas = ["Variável", "GP", "GS", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%",
-                     "FTM", "FTA", "FT%", "OREB", "DREB", "REB", "AST", "STL", "BLK", "TOV", "PF"]
-    
-    '''
-    table1 = Table(title=f"{título1}")
-
-    for colunas in lista_colunas:
-        table1.add_column(colunas)
-        
-    for row in lista_covar:
-        table1.add_row(*row, style='black')
-        
-    table2 = Table(title=f"{título2}")
-
-    for colunas in lista_colunas:
-        table2.add_column(colunas)
-        
-    for row in lista_corre:
-        table2.add_row(*row, style='black')
-        
-    console = Console()
-    console.print(table1)
-    print()
-    console.print(table2)
-    '''
-
 temporada_regular = pd.read_csv("bases_de_dados/stats_regular_season.csv")
 playoffs = pd.read_csv("bases_de_dados/stats_playoffs.csv")
 
@@ -118,4 +68,98 @@ jordan_df_po = playoffs[playoffs["PLAYER"] == "MICHAEL JORDAN"]
 
 lista_variaveis_quant = ["GP", "GS", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM",
                           "FTA", "FT%", "OREB", "DREB", "REB", "AST", "STL", "BLK", "TOV", "PF"]
-analise_bidimensional(kobe_df_rs, lista_variaveis_quant, "Covariância Kobe RS", "Correlação Kobe RS")
+
+
+def analise_bidimensional(base_de_dados):
+
+    lista_variaveis_quant = ["GP", "GS", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM",
+                          "FTA", "FT%", "OREB", "DREB", "REB", "AST", "STL", "BLK", "TOV", "PF"]
+    lista_de_variaveis_quant1 = ["GP", "GS", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%"]
+    lista_de_variaveis_quant2 = ["FTM", "FTA", "FT%", "OREB", "DREB", "REB", "AST", "STL", "BLK", "TOV", "PF"]
+
+    lista_de_covariancias1 = list()
+    lista_de_correlacoes1 = list()
+    lista_de_covariancias2 = list()
+    lista_de_correlacoes2 = list()
+
+    indice = 0
+    for cada_coluna in lista_variaveis_quant:
+        
+        if indice <= 9:
+            lista_de_apoio_covar1 = [cada_coluna]
+            lista_de_apoio_corre1 = [cada_coluna]
+        else:
+            lista_de_apoio_covar2 = [cada_coluna]
+            lista_de_apoio_corre2 = [cada_coluna]
+
+        if indice <= 9:
+            for cada_variavel in lista_de_variaveis_quant1:
+                covar = str(round(st.covariance(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 1))
+                corre = str(round(st.correlation(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 1))
+        else:
+            for cada_variavel in lista_de_variaveis_quant2:
+                covar = str(round(st.covariance(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 1))
+                corre = str(round(st.correlation(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 1))
+        
+        if indice <= 9:
+                lista_de_apoio_covar1.append(covar)
+                lista_de_apoio_corre1.append(corre)
+        else:
+                lista_de_apoio_covar2.append(covar)
+                lista_de_apoio_corre2.append(corre)
+
+        if indice <= 9:
+            lista_de_covariancias1.append(lista_de_apoio_covar1)
+            lista_de_correlacoes1.append(lista_de_apoio_corre1)
+        else:
+            lista_de_covariancias2.append(lista_de_apoio_covar2)
+            lista_de_correlacoes2.append(lista_de_apoio_corre2)
+        
+        indice += 1
+
+    lista_de_colunas_1 = ["VARIÁVEIS", "GP", "GS", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%"]
+    lista_de_colunas_2 = ["VARIÁVEIS","FTM","FTA", "FT%", "OREB", "DREB", "REB", "AST", "STL", "BLK", "TOV", "PF"]
+
+    console = Console()
+
+    table1 = Table(title="Covariância")
+
+    for column in lista_de_colunas_1:
+        table1.add_column(column)
+
+    for row in lista_de_covariancias1:
+        table1.add_row(*row, style='black')
+
+    console.print(table1)
+
+    table2 = Table(title="Covariância")
+
+    for column in lista_de_colunas_2:
+        table2.add_column(column)
+
+    for row in lista_de_covariancias2:
+        table2.add_row(*row, style='black')
+
+    console.print(table2)
+
+    table3 = Table(title="Correlação")
+
+    for column in lista_de_colunas_1:
+        table3.add_column(column)
+
+    for row in lista_de_correlacoes1:
+        table3.add_row(*row, style='black')
+
+    console.print(table3)
+
+    table4 = Table(title="Correlação")
+
+    for column in lista_de_colunas_2:
+        table4.add_column(column)
+
+    for row in lista_de_correlacoes2:
+        table4.add_row(*row, style='black')
+
+    console.print(table4)
+
+analise_bidimensional(kobe_df_rs)
