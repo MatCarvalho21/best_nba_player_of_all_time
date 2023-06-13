@@ -8,6 +8,9 @@ library(ggplot2)
 
 if(!require(scales)) install.packages("scales", repos="http://R-Forge.R-project.org", dependencies = TRUE)
 library(scales)
+
+if(!require(gridExtra)) install.packages("gridExtra", repos="http://R-Forge.R-project.org", dependencies = TRUE)
+library(gridExtra)
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -15,43 +18,45 @@ stats_regular_season = read.csv("bases_de_dados/stats_regular_season.csv")
 stats_playoffs = read.csv("bases_de_dados/stats_playoffs.csv")
 ```
 
-```{r fig.align='center', fig.width=15, fig.height=5,message=FALSE, warning=FALSE}
-stats_regular_season <- mutate(stats_regular_season, PPG = round((PTS / GP), 1))
-stats_playoffs <- mutate(stats_playoffs, PPG = round((PTS / GP), 1))
+```{r fig.align='center', fig.width=12, fig.height=3,message=FALSE, warning=FALSE}
+stats_regular_season <- mutate(stats_regular_season, PTS = round((PTS/GP), 2))
+stats_playoffs <- mutate(stats_playoffs, PTS = round((PTS/GP), 2))
 
-paleta_times <- c("red", "darkred", "gold", "darkorange", "steelblue")
-grafico_pontos_idade_rs <- ggplot(data = stats_regular_season, aes(x = AGE, y = PPG, color = TEAM)) + geom_point(size = 3) + facet_wrap(~PLAYER, ncol = 3) + theme_linedraw() + xlim(18, 40) + ylim(0, 40) + scale_color_manual(values = paleta_times) + labs(title = "Média de Pts Por Jogo (RS)",x = "Idade Dos Jogadores", y = "Média de Pontos Por Partida", colour = "Equipe") + geom_hline(yintercept=30, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
 
-grafico_pontos_idade_po <- ggplot(data = stats_playoffs, aes(x = AGE, y = PPG, color = TEAM)) + geom_point(size = 3) + facet_wrap(~PLAYER, ncol = 3) + theme_linedraw() + xlim(18, 40) + ylim(0, 40) + scale_color_manual(values = paleta_times) + labs(title = "Média de Pts Por Jogo (PO)",x = "Idade Dos Jogadores", y = "Média de Pontos Por Partida", colour = "Equipe") + geom_hline(yintercept=30, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
+paleta_players <- c("gold", "darkred", "red")
+grafico_pts_idade_rs <- ggplot(stats_regular_season, aes(x = AGE, y = PTS, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 40) + scale_color_manual(values = paleta_players) + labs(title = "Média de Pontos Por Jogo (RS)",x = "Idade Dos Jogadores", y = "Média de Pontos Por Partida", colour = "Jogador") + geom_hline(yintercept=30, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
 
-ggsave("imagens/graf_1.png", plot = grafico_pontos_idade_rs, dpi = 150)
-ggsave("imagens/graf_2.png", plot = grafico_pontos_idade_po, dpi = 150)
+grafico_pts_idade_po <- ggplot(stats_playoffs, aes(x = AGE, y = PTS, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 40) + scale_color_manual(values = paleta_players) + labs(title = "Média de Pontos Por Jogo (PO)",x = "Idade Dos Jogadores", y = "Média de Pontos Por Partida", colour = "Jogador") + geom_hline(yintercept=30, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
+
+ggsave("imagens/analise/GRAF_PTS_RS.png", plot = grafico_pts_idade_rs, dpi = 150, width = 15, height = 5)
+ggsave("imagens/analise/GRAF_PTS_PO.png", plot = grafico_pts_idade_po, dpi = 150, width = 15, height = 5)
 ```
 
-```{r fig.align='center', fig.width=15, fig.height=5,message=FALSE, warning=FALSE}
-stats_regular_season <- mutate(stats_regular_season, APG = round((AST/GP), 2))
-stats_playoffs <- mutate(stats_playoffs, APG = round((AST/GP), 2))
 
-graf_3 <- paleta_players <- c("gold", "darkred", "red")
-grafico_assist_idade_rs <- ggplot(stats_regular_season, aes(x = AGE, y = APG, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Assitências Por Jogo (RS)",x = "Idade Dos Jogadores", y = "Média de Assistências Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
+```{r fig.align='center', fig.width=12, fig.height=3,message=FALSE, warning=FALSE}
+stats_regular_season <- mutate(stats_regular_season, AST = round((AST/GP), 2))
+stats_playoffs <- mutate(stats_playoffs, AST = round((AST/GP), 2))
 
-grafico_assist_idade_po <- ggplot(stats_playoffs, aes(x = AGE, y = APG, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Assitências Por Jogo (PO)",x = "Idade Dos Jogadores", y = "Média de Assistências Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
+paleta_players <- c("gold", "darkred", "red")
+grafico_ast_idade_rs <- ggplot(stats_regular_season, aes(x = AGE, y = AST, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Assistência Por Jogo (RS)",x = "Idade Dos Jogadores", y = "Média de Assistência Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
 
-ggsave("imagens/graf_3.png", plot = grafico_assist_idade_rs, dpi = 150)
-ggsave("imagens/graf_4.png", plot = grafico_assist_idade_po, dpi = 150)
+grafico_ast_idade_po <- ggplot(stats_playoffs, aes(x = AGE, y = AST, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Assistência Por Jogo (PO)",x = "Idade Dos Jogadores", y = "Média de Assistência Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
+
+ggsave("imagens/analise/GRAF_AST_RS.png", plot = grafico_ast_idade_rs, dpi = 150, width = 15, height = 5)
+ggsave("imagens/analise/GRAF_AST_PO.png", plot = grafico_ast_idade_po, dpi = 150, width = 15, height = 5)
 ```
 
-```{r fig.align='center', fig.width=15, fig.height=5,message=FALSE, warning=FALSE}
+```{r fig.align='center', fig.width=12, fig.height=3,message=FALSE, warning=FALSE}
 stats_regular_season <- mutate(stats_regular_season, REP = round((REB/GP), 2))
 stats_playoffs <- mutate(stats_playoffs,REP = round((REB/GP), 2))
 
-graf_3 <- paleta_players <- c("gold", "darkred", "red")
+paleta_players <- c("gold", "darkred", "red")
 grafico_reb_idade_rs <- ggplot(stats_regular_season, aes(x = AGE, y = REP, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Rebotes Por Jogo (RS)",x = "Idade Dos Jogadores", y = "Média de Rebotes Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
 
 grafico_reb_idade_po <- ggplot(stats_playoffs, aes(x = AGE, y = REP, color = PLAYER)) + geom_line(size = 1, alpha = 0.6) + theme_minimal() + xlim(18, 40) + ylim(0, 12) + scale_color_manual(values = paleta_players) + labs(title = "Média de Rebotes Por Jogo (PO)",x = "Idade Dos Jogadores", y = "Média de Rebotes Por Partida", colour = "Jogador") + geom_hline(yintercept=7, linetype="dashed", color = "black", size = 1) + theme(plot.title = element_text(hjust = 0.5, size = 15))
 
-ggsave("imagens/graf_5.png", plot = grafico_reb_idade_rs, dpi = 150)
-ggsave("imagens/graf_6.png", plot = grafico_reb_idade_po, dpi = 150)
+ggsave("imagens/analise/GRAF_REB_RS.png", plot = grafico_reb_idade_rs, dpi = 150, width = 15, height = 5)
+ggsave("imagens/analise/GRAF_REB_PO.png", plot = grafico_reb_idade_po, dpi = 150, width = 15, height = 5)
 ```
 
 ```{r fig.align='center', fig.width=12, fig.height=4,message=FALSE, warning=FALSE}
@@ -245,5 +250,18 @@ ggsave("imagens/grafico/GRAF_PF_PO.png", plot = GRAF_PF_PO, dpi = 150)
 ```
 
 
+```{r fig.align='center', fig.width=7, fig.height=7,message=FALSE, warning=FALSE}
+dados_temporadas <- aggregate(. ~ PLAYER + TEAM, data = stats_regular_season, FUN = length)
+colnames(dados_temporadas) <- c("PLAYER", "TEAM", "TEMPORADAS")
 
+GRAF_TEAM_PLAYER_RS <- ggplot(dados_temporadas, aes(x = PLAYER, y = TEAM, size = TEMPORADAS, color = TEAM)) + geom_point(alpha = 0.7) + scale_color_manual(values = paleta_times) + scale_size(range = c(20, 40), guide = "none") + labs(title = "Número de Temporadas Por Equipe RS", x = "Jogador", y = "Equipe", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 18)) + theme_linedraw() + theme(plot.title = element_text(hjust = 0.5, size = 18))
+
+dados_temporadas <- aggregate(. ~ PLAYER + TEAM, data = stats_playoffs, FUN = length)
+colnames(dados_temporadas) <- c("PLAYER", "TEAM", "TEMPORADAS")
+
+GRAF_TEAM_PLAYER_PO <- ggplot(dados_temporadas, aes(x = PLAYER, y = TEAM, size = TEMPORADAS, color = TEAM)) + geom_point(alpha = 0.7) + scale_color_manual(values = paleta_times) + scale_size(range = c(20, 40), guide = "none") + labs(title = "Número de Temporadas Por Equipe PO", x = "Jogador", y = "Equipe", colour = "Equipe") + theme(plot.title = element_text(hjust = 0.5, size = 18)) + theme_linedraw() + theme(plot.title = element_text(hjust = 0.5, size = 18))
+
+ggsave("imagens/analise/GRAF_TEAM_PLAYER_RS.png", plot = GRAF_TEAM_PLAYER_RS, dpi = 150)
+ggsave("imagens/analise/GRAF_TEAM_PLAYER_PO.png", plot = GRAF_TEAM_PLAYER_PO, dpi = 150)
+```
 

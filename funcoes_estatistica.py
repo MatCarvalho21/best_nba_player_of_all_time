@@ -84,38 +84,31 @@ def analise_bidimensional(base_de_dados):
 
     indice = 0
     for cada_coluna in lista_variaveis_quant:
-        
-        if indice <= 9:
-            lista_de_apoio_covar1 = [cada_coluna]
-            lista_de_apoio_corre1 = [cada_coluna]
-        else:
-            lista_de_apoio_covar2 = [cada_coluna]
-            lista_de_apoio_corre2 = [cada_coluna]
+        lista_de_apoio_covar1 = [cada_coluna]
+        lista_de_apoio_corre1 = [cada_coluna]
+        lista_de_apoio_covar2 = [cada_coluna]
+        lista_de_apoio_corre2 = [cada_coluna]
 
-        if indice <= 9:
-            for cada_variavel in lista_de_variaveis_quant1:
-                covar = str(round(st.covariance(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 1))
-                corre = str(round(st.correlation(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 1))
-        else:
-            for cada_variavel in lista_de_variaveis_quant2:
-                covar = str(round(st.covariance(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 1))
-                corre = str(round(st.correlation(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 1))
-        
-        if indice <= 9:
-                lista_de_apoio_covar1.append(covar)
-                lista_de_apoio_corre1.append(corre)
-        else:
-                lista_de_apoio_covar2.append(covar)
-                lista_de_apoio_corre2.append(corre)
+        for cada_variavel in lista_de_variaveis_quant1:
+            covar = str(round(st.covariance(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 2))
+            corre = str(round(st.correlation(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 2))
 
-        if indice <= 9:
-            lista_de_covariancias1.append(lista_de_apoio_covar1)
-            lista_de_correlacoes1.append(lista_de_apoio_corre1)
-        else:
-            lista_de_covariancias2.append(lista_de_apoio_covar2)
-            lista_de_correlacoes2.append(lista_de_apoio_corre2)
-        
-        indice += 1
+            lista_de_apoio_covar1.append(covar)
+            lista_de_apoio_corre1.append(corre)
+
+        lista_de_covariancias1.append(lista_de_apoio_covar1)
+        lista_de_correlacoes1.append(lista_de_apoio_corre1)
+
+        for cada_variavel in lista_de_variaveis_quant2:
+            covar = str(round(st.covariance(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 2))
+            corre = str(round(st.correlation(list(base_de_dados[cada_coluna]), list(base_de_dados[cada_variavel])), 2))        
+
+            lista_de_apoio_covar2.append(covar)
+            lista_de_apoio_corre2.append(corre)  
+
+        lista_de_covariancias2.append(lista_de_apoio_covar2)
+        lista_de_correlacoes2.append(lista_de_apoio_corre2)
+ 
 
     lista_de_colunas_1 = ["VARIÁVEIS", "GP", "GS", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%"]
     lista_de_colunas_2 = ["VARIÁVEIS","FTM","FTA", "FT%", "OREB", "DREB", "REB", "AST", "STL", "BLK", "TOV", "PF"]
@@ -162,4 +155,3 @@ def analise_bidimensional(base_de_dados):
 
     console.print(table4)
 
-analise_bidimensional(kobe_df_rs)
