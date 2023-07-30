@@ -1,4 +1,4 @@
-# Trabalho de A2 - AEDV - Matheus Carvalho
+# Trabalho Final - AEDV - Matheus Carvalho
 ## Descrição:
 Esse projeto foi desenvolvido por mim, Matheus Carvalho, estudante do primeiro período de Ciência de Dados e Inteligência Artificial da EMAp, Escola de Matemática Aplicada, da FGV-RJ. Para o projeto foram usadas diversas ferramentas e linguagens. Dentre elas estão o jupyter notebook, R, python, ggplot, dplyr, html, javascript, css, canva, photopea e outras. 
 
