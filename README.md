@@ -11,7 +11,7 @@ O tema escolhido por mim foi basquete, e a minha ideia inicial era descobrir, po
 * As imagens utilizadas para confecção da análise estão no diretório `imagens`, e as imagens utilizadas para produção da peça gráfica estão no sub-diretório `grafico`. 
 * Existe um arquivo `funcoes_estatistica.py`, que contém duas funções em python que foram usadas para facilitar a análise dos dados. 
 * Além do `produtor_de_graficos.Rmd`, que é um arquivo de R Markdown com os códigos para todos os gráficos utilizados para ilustrar tanto a análise, quanto a peça gráfica. 
-* Por fim, a peça gráfica está no arquivo `peca_grafica_aedv_matheus_carvalho - Alterada.html` e contém uma página html interativa onde o usuário pode comparar diferentes estatísticas das carreiras de LeBron James, Michael Jordan e Kobe Bryant.
+* Por fim, a peça gráfica está no arquivo `index.html` e contém uma página html interativa onde o usuário pode comparar diferentes estatísticas das carreiras de LeBron James, Michael Jordan e Kobe Bryant.
  
 # Final Project - EDAV - Matheus Carvalho (English)
 ## Description:
@@ -26,4 +26,4 @@ I chose the topic of basketball, and my initial idea was to discover, through th
 * The images used for the analysis are in the `imagens` directory, and the images used to produce the graphical piece are in the `grafico` sub-directory.
 * There is a `funcoes_estatistica.py` file containing two Python functions that were used to facilitate data analysis.
 * In addition to the `produtor_de_graficos.Rmd`, which is an R Markdown file with the codes for all the graphics used to illustrate both the analysis and the graphical piece.
-* Finally, the graphical piece is in the `peca_grafica_aedv_matheus_carvalho - Alterada.html` file and contains an interactive HTML page where the user can compare different statistics from the careers of LeBron James, Michael Jordan, and Kobe Bryant.
+* Finally, the graphical piece is in the `index.html` file and contains an interactive HTML page where the user can compare different statistics from the careers of LeBron James, Michael Jordan, and Kobe Bryant.
