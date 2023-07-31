@@ -1,7 +1,7 @@
 # Trabalho Final - AEDV - Matheus Carvalho
 ## Resultado
 
-[Resultado Final do Projeto]([https://.com/](https://matcarvalho21.github.io/best_nba_player_of_all_time/)).
+[Resultado Final do Projeto]([https://.com/](https://matcarvalho21.github.io/best_nba_player_of_all_time/).
 
 ## Descrição:
 Esse projeto foi desenvolvido por mim, Matheus Carvalho, estudante do primeiro período de Ciência de Dados e Inteligência Artificial da EMAp, Escola de Matemática Aplicada, da FGV-RJ. Para o projeto foram usadas diversas ferramentas e linguagens. Dentre elas estão o jupyter notebook, R, python, ggplot, dplyr, html, javascript, css, canva, photopea e outras. 
