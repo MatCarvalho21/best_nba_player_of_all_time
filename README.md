@@ -1,4 +1,6 @@
 # Trabalho Final - AEDV - Matheus Carvalho
+## Resultado
+[Resultado Final do Projeto]([https://.com/](https://matcarvalho21.github.io/best_nba_player_of_all_time/)).
 ## Descrição:
 Esse projeto foi desenvolvido por mim, Matheus Carvalho, estudante do primeiro período de Ciência de Dados e Inteligência Artificial da EMAp, Escola de Matemática Aplicada, da FGV-RJ. Para o projeto foram usadas diversas ferramentas e linguagens. Dentre elas estão o jupyter notebook, R, python, ggplot, dplyr, html, javascript, css, canva, photopea e outras. 
 
@@ -14,6 +16,8 @@ O tema escolhido por mim foi basquete, e a minha ideia inicial era descobrir, po
 * Por fim, a peça gráfica está no arquivo `index.html` e contém uma página html interativa onde o usuário pode comparar diferentes estatísticas das carreiras de LeBron James, Michael Jordan e Kobe Bryant.
  
 # Final Project - EDAV - Matheus Carvalho (English)
+## Result:
+[Final Result of The Project]([https://.com/](https://matcarvalho21.github.io/best_nba_player_of_all_time/)).
 ## Description:
 This project was developed by me, Matheus Carvalho, a first-semester student in Data Science and Artificial Intelligence at EMAp, Escola de Matemática Aplicada, FGV-RJ. Various tools and languages were used for this project, including Jupyter Notebook, R, Python, ggplot, dplyr, HTML, JavaScript, CSS, Canva, Photopea, and others.
 
